@@ -7,51 +7,74 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap"
     rel="stylesheet"
   />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
   <header class="navbar">
-    <a href="#" class="logo">ALTAPINTA</a>
+    <div class="nav-top">
+      <button type="button" id="btn-menu-filtro" class="icon-btn" aria-label="Filtros">☰</button>
 
-    <nav class="nav-links">
-      <a href="#catalogo">CATALOGO</a>
-      <a href="#personaliza">PERSONALIZA</a>
-      <button type="button" id="btn-abrir-carrito" class="btn-carrito">
-        Carrito (<span id="contador-carrito">0</span>)
-      </button>
+      <a href="#" class="logo-wrap" aria-label="ALTAPINTA">
+        <img src="assets/logo.gif" alt="Logo animado Altapinta" class="header-gif" />
+        <span class="logo-text">ALTAPINTA</span>
+      </a>
+
+      <div class="nav-right">
+        <a href="#personaliza" class="icon-link" aria-label="Personalizados">✦</a>
+        <button type="button" id="btn-abrir-carrito" class="btn-carrito" aria-label="Abrir carrito">
+          🛒 <span id="contador-carrito">0</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="search-box">
+      <input
+        type="search"
+        id="buscador-productos"
+        placeholder="Buscar"
+        aria-label="Buscar prendas"
+      />
+      <span class="search-icon">🔍</span>
+    </div>
+
+    <nav class="quick-cats" aria-label="Categorías rápidas">
+      <button type="button" class="btn-filtro activo" data-categoria="todos">TODOS</button>
+      <button type="button" class="btn-filtro" data-categoria="camiseta">CAMISETAS OVER</button>
+      <button type="button" class="btn-filtro" data-categoria="personalizados">PERSONALIZADOS</button>
+      <a href="#personaliza" class="cat-link">PEDIDOS CUSTOM</a>
     </nav>
-
-    <img src="assets/logo.gif" alt="Logo animado Altapinta" class="header-gif" />
   </header>
 
-  <section class="hero">
-    <h1>Algodón pesado, cortes boxy y drops limitados</h1>
-    <p>Camisetas urbanas oversize y buzos personalizados con estampados de alta durabilidad.</p>
-    <a href="#catalogo" class="btn-primario">Explorar colección</a>
-  </section>
+  <main>
+    <section class="drop-banner">
+      <h1>ALGODÓN PESADO • HEAVY DROP</h1>
+      <p>Cortes boxy y oversize • Envíos directos por WhatsApp</p>
+    </section>
 
-  <section id="catalogo" class="seccion">
-    <h2>Colección Disponible</h2>
-    <div id="grid-productos" class="grid-productos"></div>
-  </section>
+    <section id="catalogo" class="seccion">
+      <h2 class="drop-title">COLECCIÓN DISPONIBLE</h2>
+      <div id="grid-productos" class="grid-productos"></div>
+    </section>
 
-  <section id="personaliza" class="seccion personaliza-box">
-    <h2>¿Buscas un diseño personalizado?</h2>
-    <p>Envíanos tu idea, referencia o gráfico y lo estampamos en camiseta oversize o hoodie.</p>
-    <a
-      href="https://wa.me/593989539744?text=Hola,%20quiero%20cotizar%20una%20prenda%20personalizada"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="btn-primario"
-    >
-      Cotizar por WhatsApp
-    </a>
-  </section>
+    <section id="personaliza" class="seccion personaliza-box">
+      <h2>DISEÑOS PERSONALIZADOS</h2>
+      <p>Envíanos tu idea, anime, música o referencia y la estampamos en camiseta oversize o buzo.</p>
+      <a
+        id="link-custom-wa"
+        href="https://wa.me/593989539744?text=Hola%20Altapinta,%20quiero%20cotizar%20una%20prenda%20personalizada"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-primario"
+      >
+        COTIZAR POR WHATSAPP
+      </a>
+    </section>
+  </main>
 
-  <!-- Modal del Carrito con recuadro y cuadritos -->
+  <!-- Modal del Carrito -->
   <div id="modal-carrito" class="cart-overlay oculto" aria-hidden="true">
     <div class="cart-modal">
       <div class="cart-header">
@@ -59,7 +82,6 @@
         <button type="button" id="btn-cerrar-x" class="cart-close" aria-label="Cerrar carrito">✕</button>
       </div>
 
-      <!-- Aquí tu JS puede insertar <li> o <div class="cart-item"> -->
       <div id="cart-items" class="cart-items">
         <ul id="lista-carrito" class="cart-lista"></ul>
       </div>
@@ -77,41 +99,5 @@
   </div>
 
   <script src="js/app.js"></script>
-  <script>
-    (() => {
-      const modal = document.getElementById("modal-carrito");
-      const btnAbrir = document.getElementById("btn-abrir-carrito");
-      const btnCerrarX = document.getElementById("btn-cerrar-x");
-      const btnSeguir = document.getElementById("btn-cerrar-carrito");
-
-      if (!modal) return;
-
-      const abrir = () => {
-        modal.classList.remove("oculto");
-        modal.classList.add("open");
-        modal.style.display = "flex";
-        modal.setAttribute("aria-hidden", "false");
-      };
-
-      const cerrar = () => {
-        modal.classList.remove("open", "active");
-        modal.classList.add("oculto");
-        modal.style.display = "none";
-        modal.setAttribute("aria-hidden", "true");
-      };
-
-      if (btnAbrir) btnAbrir.addEventListener("click", abrir);
-      if (btnCerrarX) btnCerrarX.addEventListener("click", cerrar);
-      if (btnSeguir) btnSeguir.addEventListener("click", cerrar);
-
-      modal.addEventListener("click", (e) => {
-        if (e.target === modal) cerrar();
-      });
-
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") cerrar();
-      });
-    })();
-  </script>
 </body>
 </html>
