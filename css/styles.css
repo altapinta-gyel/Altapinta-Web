@@ -440,3 +440,52 @@ body {
   gap: 10px;
   flex-wrap: wrap;
 }
+/* GIF superior más visible */
+.header-gif {
+  height: 46px;
+  width: auto;
+  max-width: 110px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Marca en grande donde antes iba ALGODÓN PESADO */
+.drop-banner {
+  padding: 28px 16px 12px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.hero-gif {
+  width: auto;
+  height: clamp(86px, 20vw, 138px);
+  max-width: 240px;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.75));
+}
+
+.hero-brand-title {
+  margin: 0;
+  font-family: "Anton", sans-serif;
+  font-size: clamp(2.8rem, 11vw, 5.2rem);
+  line-height: 0.96;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-shadow:
+    0 4px 0 rgba(255, 255, 255, 0.14),
+    0 12px 28px rgba(0, 0, 0, 0.85);
+}
+
+.hero-subline {
+  margin: 2px 0 0;
+  color: #b5b5c0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
