@@ -99,6 +99,24 @@ botonesFiltro.forEach((boton) => {
     renderizarProductos();
   });
 });
+botonesFiltro.forEach((boton) => {
+  boton.addEventListener("click", () => {
+    botonesFiltro.forEach((b) => b.classList.remove("activo"));
+    boton.classList.add("activo");
+    categoriaActual = boton.dataset.categoria;
+    renderizarProductos();
+
+    if (categoriaActual === "personalizados") {
+      const seccionPersonaliza = document.getElementById("personaliza");
+      seccionPersonaliza?.classList.add("destacado-cotizar");
+      seccionPersonaliza?.scrollIntoView({ behavior: "smooth", block: "center" });
+
+      setTimeout(() => {
+        seccionPersonaliza?.classList.remove("destacado-cotizar");
+      }, 1800);
+    }
+  });
+});
 
 if (buscadorProductos) {
   buscadorProductos.addEventListener("input", (e) => {
