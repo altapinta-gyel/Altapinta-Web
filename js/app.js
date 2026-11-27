@@ -7,7 +7,6 @@ const productos = [
     fit: "Oversize Fit • Algodón pesado",
     precio: 18.00,
     categoria: "camiseta",
-    etiqueta: "DROP",
     tallas: ["S", "M", "L", "XL"],
     imagen: "assets/camisa oversize Vegeta.jpg"
   },
@@ -17,7 +16,6 @@ const productos = [
     fit: "Oversize Fit • Algodón pesado",
     precio: 18.00,
     categoria: "camiseta",
-    etiqueta: "DROP",
     tallas: ["S", "M", "L", "XL"],
     imagen: "assets/gohan.jpg"
   },
@@ -26,8 +24,7 @@ const productos = [
     nombre: "CAMISETA OVERSIZE DENNIS RODMAN • CUSTOM",
     fit: "Oversize Fit • Algodón pesado",
     precio: 18.00,
-    categoria: "personalizados",
-    etiqueta: "CUSTOM",
+    categoria: "Camiseta",
     tallas: ["S", "M", "L", "XL"],
     imagen: "assets/3.jpg"
   }
