@@ -3,37 +3,39 @@ const TELEFONO_WHATSAPP = "593989539744";
 const productos = [
   {
     id: 1,
-    nombre: "Camiseta Oversize Vegeta",
-    fit: "Oversize FIT • Algodón",
+    nombre: "CAMISETA OVERSIZE VEGETA • HEAVY DROP",
+    fit: "Oversize Fit • Algodón pesado",
     precio: 18.00,
     categoria: "camiseta",
-    etiqueta: "",
+    etiqueta: "DROP",
     tallas: ["S", "M", "L", "XL"],
     imagen: "assets/camisa oversize Vegeta.jpg"
   },
   {
     id: 2,
-    nombre: "Camiseta Oversize Gohan",
-    fit: "Oversize Fit • Algodón",
+    nombre: "CAMISETA OVERSIZE GOHAN • HEAVY DROP",
+    fit: "Oversize Fit • Algodón pesado",
     precio: 18.00,
     categoria: "camiseta",
-    etiqueta: "",
+    etiqueta: "DROP",
     tallas: ["M", "L", "XL"],
-    imagen: "assets/gohan.jpg"
+    imagen: "assets/3.jpg"
   },
   {
     id: 3,
-    nombre: "Camiseta Oversize Dennis Rodman",
-    fit: "Oversize FIT • Algodón",
+    nombre: "CAMISETA OVERSIZE DENNIS RODMAN • CUSTOM",
+    fit: "Oversize Fit • Algodón pesado",
     precio: 18.00,
     categoria: "personalizados",
-    etiqueta: "CAMISETA",
+    etiqueta: "CUSTOM",
     tallas: ["S", "M", "L", "XL"],
-    imagen: "assets/3.jpg"
+    imagen: "assets/rodman.jpg"
   }
 ];
 
 let carrito = [];
+let categoriaActual = "todos";
+let textoBusqueda = "";
 
 const gridProductos = document.getElementById("grid-productos");
 const contadorCarrito = document.getElementById("contador-carrito");
@@ -41,27 +43,30 @@ const modalCarrito = document.getElementById("modal-carrito");
 const listaCarrito = document.getElementById("lista-carrito");
 const totalCarrito = document.getElementById("total-carrito");
 const botonesFiltro = document.querySelectorAll(".btn-filtro");
-const linkCustomWa = document.getElementById("link-custom-wa");
+const buscadorProductos = document.getElementById("buscador-productos");
+const btnMenuFiltro = document.getElementById("btn-menu-filtro");
 
-// Enlace directo de WhatsApp para pedidos personalizados
-if (linkCustomWa) {
-  const textoCustom = encodeURIComponent(
-    "Hola Altapinta, quiero cotizar una prenda personalizada (camiseta Regular, Oversize, Boxifit / hoodie)."
-  );
-  linkCustomWa.href = `https://wa.me/${TELEFONO_WHATSAPP}?text=${textoCustom}`;
-}
-
-function renderizarProductos(categoriaSeleccionada = "todos") {
+function renderizarProductos() {
   if (!gridProductos) return;
   gridProductos.innerHTML = "";
 
-  const filtrados =
-    categoriaSeleccionada === "todos"
-      ? productos
-      : productos.filter((prod) => prod.categoria.toLowerCase() === categoriaSeleccionada.toLowerCase());
+  const filtrados = productos.filter((prod) => {
+    const coincideCategoria =
+      categoriaActual === "todos" ||
+      prod.categoria.toLowerCase() === categoriaActual.toLowerCase();
+
+    const termino = textoBusqueda.trim().toLowerCase();
+    const coincideTexto =
+      !termino ||
+      prod.nombre.toLowerCase().includes(termino) ||
+      (prod.fit && prod.fit.toLowerCase().includes(termino)) ||
+      prod.categoria.toLowerCase().includes(termino);
+
+    return coincideCategoria && coincideTexto;
+  });
 
   if (filtrados.length === 0) {
-    gridProductos.innerHTML = `<p style="color:#9a9aa6;">No hay piezas en esta categoría por ahora.</p>`;
+    gridProductos.innerHTML = `<p style="color:#9e9eaa;grid-column:1/-1;text-align:center;">No se encontraron prendas con ese filtro.</p>`;
     return;
   }
 
@@ -69,19 +74,21 @@ function renderizarProductos(categoriaSeleccionada = "todos") {
     const card = document.createElement("article");
     card.className = "card";
     card.innerHTML = `
-      <div class="card-img-wrap">
-        <span class="card-tag">${prod.etiqueta || prod.categoria}</span>
-        <img src="${prod.imagen}" alt="${prod.nombre}" />
+      <div>
+        <div class="card-img-wrap">
+          <span class="card-tag">${prod.etiqueta || prod.categoria}</span>
+          <img src="${prod.imagen}" alt="${prod.nombre}" />
+        </div>
+        <h3 class="card-title">${prod.nombre}</h3>
+        <div class="card-precio">$${prod.precio.toFixed(2)}</div>
+        <p class="card-cuotas">${prod.fit || "Algodón pesado"}</p>
       </div>
-      <div class="card-top">
-        <h3>${prod.nombre}</h3>
-        <span class="card-precio">$${prod.precio.toFixed(2)}</span>
+      <div class="card-controls">
+        <select id="talla-${prod.id}" aria-label="Seleccionar talla para ${prod.nombre}">
+          ${prod.tallas.map((t) => `<option value="${t}">Talla ${t}</option>`).join("")}
+        </select>
+        <button type="button" class="btn-primario" onclick="agregarAlCarrito(${prod.id})">AGREGAR AL CARRITO</button>
       </div>
-      <p class="card-fit">${prod.fit || ""}</p>
-      <select id="talla-${prod.id}">
-        ${prod.tallas.map((t) => `<option value="${t}">Talla ${t}</option>`).join("")}
-      </select>
-      <button type="button" class="btn-primario" onclick="agregarAlCarrito(${prod.id})">AGREGAR AL CARRITO</button>
     `;
     gridProductos.appendChild(card);
   });
@@ -91,11 +98,26 @@ botonesFiltro.forEach((boton) => {
   boton.addEventListener("click", () => {
     botonesFiltro.forEach((b) => b.classList.remove("activo"));
     boton.classList.add("activo");
-    renderizarProductos(boton.dataset.categoria);
+    categoriaActual = boton.dataset.categoria;
+    renderizarProductos();
   });
 });
 
-renderizarProductos("todos");
+if (buscadorProductos) {
+  buscadorProductos.addEventListener("input", (e) => {
+    textoBusqueda = e.target.value;
+    renderizarProductos();
+  });
+}
+
+if (btnMenuFiltro) {
+  btnMenuFiltro.addEventListener("click", () => {
+    document.getElementById("catalogo")?.scrollIntoView({ behavior: "smooth" });
+    buscadorProductos?.focus();
+  });
+}
+
+renderizarProductos();
 
 function agregarAlCarrito(id) {
   const producto = productos.find((p) => p.id === id);
@@ -114,7 +136,7 @@ function actualizarCarrito() {
   let total = 0;
 
   if (carrito.length === 0) {
-    listaCarrito.innerHTML = `<li style="color:#9a9aa6;border:none;">Tu bag está vacío.</li>`;
+    listaCarrito.innerHTML = `<li style="color:#9e9eaa;border:none;background:transparent;">Tu bag está vacío.</li>`;
   } else {
     carrito.forEach((item, index) => {
       total += item.precio;
@@ -142,6 +164,7 @@ const abrirModal = () => {
   modalCarrito.classList.remove("oculto");
   modalCarrito.classList.add("open");
   modalCarrito.style.display = "flex";
+  modalCarrito.setAttribute("aria-hidden", "false");
 };
 
 const cerrarModal = () => {
@@ -149,17 +172,16 @@ const cerrarModal = () => {
   modalCarrito.classList.add("oculto");
   modalCarrito.classList.remove("open", "active");
   modalCarrito.style.display = "none";
+  modalCarrito.setAttribute("aria-hidden", "true");
 };
 
 const btnAbrirCarrito = document.getElementById("btn-abrir-carrito");
 const btnCerrarCarrito = document.getElementById("btn-cerrar-carrito");
 const btnCerrarX = document.getElementById("btn-cerrar-x");
-const btnSeguirViendo = document.getElementById("btn-seguir-viendo");
 
 if (btnAbrirCarrito) btnAbrirCarrito.onclick = abrirModal;
 if (btnCerrarCarrito) btnCerrarCarrito.onclick = cerrarModal;
 if (btnCerrarX) btnCerrarX.onclick = cerrarModal;
-if (btnSeguirViendo) btnSeguirViendo.onclick = cerrarModal;
 
 if (modalCarrito) {
   modalCarrito.addEventListener("click", (e) => {
@@ -167,9 +189,11 @@ if (modalCarrito) {
   });
 }
 
-const btnEnviarWhatsapp =
-  document.getElementById("btn-enviar-whatsapp") ||
-  document.getElementById("pedir-whatsapp");
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") cerrarModal();
+});
+
+const btnEnviarWhatsapp = document.getElementById("btn-enviar-whatsapp");
 
 if (btnEnviarWhatsapp) {
   btnEnviarWhatsapp.onclick = () => {
