@@ -18,7 +18,7 @@ const productos = [
     precio: 18.00,
     categoria: "camiseta",
     etiqueta: "DROP",
-    tallas: ["M", "L", "XL"],
+    tallas: ["S", "M", "L", "XL"],
     imagen: "assets/3.jpg"
   },
   {
