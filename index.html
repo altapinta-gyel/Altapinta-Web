@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ALTAPINTA | Streetwear & Custom Apparel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="navbar">
+    <a href="#" class="logo">ALTAPINTA</a>
+
+    <nav class="nav-links">
+      <a href="#catalogo">CATALOGO</a>
+      <a href="#personaliza">PERSONALIZA</a>
+      <button type="button" id="btn-abrir-carrito" class="btn-carrito">
+        Carrito (<span id="contador-carrito">0</span>)
+      </button>
+    </nav>
+
+    <img src="assets/logo.gif" alt="Logo animado Altapinta" class="header-gif" />
+  </header>
+
+  <section class="hero">
+    <h1>Algodón pesado, cortes boxy y drops limitados</h1>
+    <p>Camisetas urbanas oversize y buzos personalizados con estampados de alta durabilidad.</p>
+    <a href="#catalogo" class="btn-primario">Explorar colección</a>
+  </section>
+
+  <section id="catalogo" class="seccion">
+    <h2>Colección Disponible</h2>
+    <div id="grid-productos" class="grid-productos"></div>
+  </section>
+
+  <section id="personaliza" class="seccion personaliza-box">
+    <h2>¿Buscas un diseño personalizado?</h2>
+    <p>Envíanos tu idea, referencia o gráfico y lo estampamos en camiseta oversize o hoodie.</p>
+    <a
+      href="https://wa.me/593989539744?text=Hola,%20quiero%20cotizar%20una%20prenda%20personalizada"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="btn-primario"
+    >
+      Cotizar por WhatsApp
+    </a>
+  </section>
+
+  <!-- Modal del Carrito con recuadro y cuadritos -->
+  <div id="modal-carrito" class="cart-overlay oculto" aria-hidden="true">
+    <div class="cart-modal">
+      <div class="cart-header">
+        <h2>TU PEDIDO</h2>
+        <button type="button" id="btn-cerrar-x" class="cart-close" aria-label="Cerrar carrito">✕</button>
+      </div>
+
+      <!-- Aquí tu JS puede insertar <li> o <div class="cart-item"> -->
+      <div id="cart-items" class="cart-items">
+        <ul id="lista-carrito" class="cart-lista"></ul>
+      </div>
+
+      <div class="cart-total-box">
+        <span>Total:</span>
+        <strong id="cart-total">$<span id="total-carrito">0.00</span></strong>
+      </div>
+
+      <div class="cart-actions">
+        <button type="button" id="btn-cerrar-carrito" class="btn-secundario">Seguir viendo</button>
+        <button type="button" id="btn-enviar-whatsapp" class="btn-primario">PEDIR POR WHATSAPP</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    (() => {
+      const modal = document.getElementById("modal-carrito");
+      const btnAbrir = document.getElementById("btn-abrir-carrito");
+      const btnCerrarX = document.getElementById("btn-cerrar-x");
+      const btnSeguir = document.getElementById("btn-cerrar-carrito");
+
+      if (!modal) return;
+
+      const abrir = () => {
+        modal.classList.remove("oculto");
+        modal.classList.add("open");
+        modal.style.display = "flex";
+        modal.setAttribute("aria-hidden", "false");
+      };
+
+      const cerrar = () => {
+        modal.classList.remove("open", "active");
+        modal.classList.add("oculto");
+        modal.style.display = "none";
+        modal.setAttribute("aria-hidden", "true");
+      };
+
+      if (btnAbrir) btnAbrir.addEventListener("click", abrir);
+      if (btnCerrarX) btnCerrarX.addEventListener("click", cerrar);
+      if (btnSeguir) btnSeguir.addEventListener("click", cerrar);
+
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) cerrar();
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") cerrar();
+      });
+    })();
+  </script>
+</body>
+</html>
