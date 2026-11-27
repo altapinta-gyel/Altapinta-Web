@@ -19,7 +19,7 @@ const productos = [
     categoria: "camiseta",
     etiqueta: "DROP",
     tallas: ["S", "M", "L", "XL"],
-    imagen: "assets/3.jpg"
+    imagen: "assets/gohan.jpg"
   },
   {
     id: 3,
@@ -29,7 +29,7 @@ const productos = [
     categoria: "personalizados",
     etiqueta: "CUSTOM",
     tallas: ["S", "M", "L", "XL"],
-    imagen: "assets/rodman.jpg"
+    imagen: "assets/3.jpg"
   }
 ];
 
