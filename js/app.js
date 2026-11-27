@@ -4,7 +4,7 @@ const productos = [
   {
     id: 1,
     nombre: "CAMISETA OVERSIZE VEGETA • HEAVY DROP",
-    fit: "Oversize Fit • Algodón pesado",
+    fit: "Oversize Fit • 100% Algodón ",
     precio: 18.00,
     categoria: "camiseta",
     tallas: ["S", "M", "L", "XL"],
@@ -13,7 +13,7 @@ const productos = [
   {
     id: 2,
     nombre: "CAMISETA OVERSIZE GOHAN • HEAVY DROP",
-    fit: "Oversize Fit • Algodón pesado",
+    fit: "Oversize Fit • 100% Algodón ",
     precio: 18.00,
     categoria: "camiseta",
     tallas: ["S", "M", "L", "XL"],
@@ -22,7 +22,7 @@ const productos = [
   {
     id: 3,
     nombre: "CAMISETA OVERSIZE DENNIS RODMAN • HEAVY DROP",
-    fit: "Oversize Fit • Algodón pesado",
+    fit: "Oversize Fit • 100% Algodón ",
     precio: 18.00,
     categoria: "Camiseta",
     tallas: ["S", "M", "L", "XL"],
