@@ -21,7 +21,7 @@ const productos = [
   },
   {
     id: 3,
-    nombre: "CAMISETA OVERSIZE DENNIS RODMAN • CUSTOM",
+    nombre: "CAMISETA OVERSIZE DENNIS RODMAN • HEAVY DROP",
     fit: "Oversize Fit • Algodón pesado",
     precio: 18.00,
     categoria: "Camiseta",
