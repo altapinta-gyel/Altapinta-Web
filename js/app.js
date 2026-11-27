@@ -19,7 +19,7 @@ const productos = [
     categoria: "camiseta",
     etiqueta: "",
     tallas: ["M", "L", "XL"],
-    imagen: "assets/3.jpg"
+    imagen: "assets/gohan.jpg"
   },
   {
     id: 3,
